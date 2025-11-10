@@ -11,3 +11,4 @@ when all books have been borrowed, the form should be replaced with a suitable m
 a book cannot be loaned to more than 1 person, so the select field should only list books that are not on loan
 in the loaned books section, indicate for each book the borrower's name, the loaned book's title and the due date
 update the book component to indicate whether the book is on loan# COMP3170_Lab7
+# COMP3170_Lab7
