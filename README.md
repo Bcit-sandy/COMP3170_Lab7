@@ -1,0 +1,13 @@
+Update the Book Catalog app with a book loan management system:
+
+Add a button for switching out the content between the book listing and loan management system
+the loan management system consists of a form for creating a book loan and, below the form, a list of loaned books
+there should be a button to switch back to the book listing view
+the form has three fields:
+a text field for the borrower
+a select field to choose the book being borrowed
+a number field for the loan period (between 1 and 4 weeks)
+when all books have been borrowed, the form should be replaced with a suitable message
+a book cannot be loaned to more than 1 person, so the select field should only list books that are not on loan
+in the loaned books section, indicate for each book the borrower's name, the loaned book's title and the due date
+update the book component to indicate whether the book is on loan# COMP3170_Lab7
