@@ -1,0 +1,9 @@
+.filter-container {
+    display: flex;
+    flex-direction: row;
+    align-items: left;
+    justify-content: left;
+    padding: 0 2rem;
+    background-color: var(--beige-color);
+    width: 10%;
+}

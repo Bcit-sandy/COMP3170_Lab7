@@ -1,0 +1,82 @@
+import { useState } from "react";
+import Book from "./components/Book";
+import Add from "./components/New";
+import Main from "./components/Main";
+import data from "../data/books.json";
+
+function App() {
+  const [books, setBooks] = useState(data);
+  const [selectedBook, setSelectedBook] = useState(null);
+
+  function getBooks(bookData) {
+    const isSelected = selectedBook && (selectedBook.isbn13 || selectedBook.title) === (bookData.isbn13 || bookData.title);
+    return (
+      <Book 
+        key={bookData.isbn13 || bookData.title} 
+        data={bookData} 
+        onSelect={handleBookSelection}
+        isSelected={isSelected}
+      />
+    );
+  }
+
+  function handleBookSelection(book) {
+    setSelectedBook(book);
+  }
+
+  function handleUpdateBook() {
+    if (selectedBook) {
+      // TODO: Implement update functionality
+      console.log("Update book:", selectedBook);
+      alert("Edit functionality will be implemented here");
+    } else {
+      alert("Please select a book to edit");
+    }
+  }
+
+  function handleDeleteBook() {
+    if (selectedBook) {
+      setBooks(prevBooks => prevBooks.filter(book => 
+          (book.isbn13 || book.title) !== (selectedBook.isbn13 || selectedBook.title)
+        ));
+        setSelectedBook(null);
+    } else {
+      alert("Please select a book to delete");
+    }
+  }
+
+
+  return (
+    <div>
+      <header className="app-header">
+       <h1 className="app-name">Book Catalog</h1>
+      </header>
+
+      <main className="app-main">
+
+        <div className="app-content-container">
+          <div className="add-button-column">
+            <Add 
+              onUpdate={handleUpdateBook}
+              onDelete={handleDeleteBook}
+              onAddBook={handleAddBook}
+            />
+          </div>
+          <Main>
+            {books.map(getBooks)}
+          </Main>
+        </div>
+      </main>
+
+      <footer className="app-footer">
+        <p>&copy; Sandy Chow, Set G, 2025</p>
+      </footer> 
+    </div>
+
+  )
+}
+
+export default App;
+
+
+

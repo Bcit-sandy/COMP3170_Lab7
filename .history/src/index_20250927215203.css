@@ -1,0 +1,304 @@
+:root {
+  --light-blue-color: #CBD9E6;
+  --blue-color: #567cbd;
+  --beige-color: #f5efeb;
+  --dark-blue-color: #2f4156;
+  --white-color: #ffffff;
+}
+
+*{
+  font-family: Helvetica, sans-serif
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+.app-header {
+  background-color: var(--light-blue-color);
+  min-height: 12vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-name {
+  font-size: 2.5rem;
+  color: var(--blue-color);
+}
+
+.app-main {
+  background: var(--beige-color);
+  width: 100%;
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.app-main-content {
+  background: var(--white-color);
+  min-height: 10vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  border-radius: 12px;
+  margin: 1rem;
+  max-width: 1000px;
+  flex-wrap: wrap;
+}
+
+.learn-more {
+  color: var(--blue-color);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.learn-more:hover {
+  color: var(--dark-blue-color);
+  text-decoration: underline;
+}
+
+.app-main-content-text {
+  font-size: 16px;
+  color: var(--dark-blue-color);
+  font-weight: 400;
+  text-align: center;
+  max-width: 600px;
+  line-height: 1.7;
+}
+
+.add-button {
+  background: var(--white-color);
+  color: var(--blue-color);
+  border: 2px solid var(--light-blue-color);
+  border-radius: 16px;
+  width: 200px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.25rem;
+  font-weight: 600;
+  box-shadow: 0 4px 12px var(--shadow-light);
+  position: relative;
+  overflow: hidden;
+  
+}
+
+.add-button:hover {
+  background-color: var(--blue-color);
+  color: var(--white-color);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+.app-content-container {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 2rem;
+  margin: 2rem auto;
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 1rem;
+  margin-bottom: 10vh;
+  align-items: start;
+  justify-items: start;
+  justify-content: center;
+}
+
+.add-button-column {
+  grid-column: 1;
+  grid-row: 1/ -1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.books-grid {
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 2rem;
+  width: 100%;
+  align-items: start;
+  justify-items: start;
+}
+
+/* Responsive design --- smaller screens */
+@media (max-width: 768px) {
+  .app-main-content {
+    width: 80%;
+  }
+  
+  .app-content-container {
+    grid-template-columns: auto;
+    gap: 1rem;
+  }
+  
+  .add-button-column {
+    grid-row: 1/ -1;
+    margin-bottom: 2rem;
+  }
+  
+  .books-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 2rem;
+  }
+}
+
+.book-container {
+  width: 200px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: none;
+  background: var(--white-color);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  justify-self: start;
+  align-self: start;
+}
+
+.book-container:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.book-container {
+  cursor: pointer;
+  position: relative;
+}
+
+.book-selected {
+  border: 3px solid var(--blue-color) 
+  background: var(--light-blue-color) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px var(--dark-blue-color) 50%;
+}
+
+.remove-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: var(--dark-blue-color);
+  color: var(--white-color);
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease, background 0.2s ease;
+  z-index: 10;
+}
+
+.book-container:hover .remove-button {
+  opacity: 1;
+}
+
+.remove-button:hover {
+  background: #d32f2f;
+  transform: scale(1.1);
+}
+
+.book-cover {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.book-cover-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.book-container:hover .book-cover-image {
+  transform: scale(1.05);
+}
+
+.book-price {
+  font-size: 16px;
+  background: var(--white-color);
+  color: var(--dark-blue-color);
+  margin: 0;
+  width: 100%;
+  height: 10px;
+  font-weight: bold;
+  text-align: center;
+  padding: 0.75rem 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid var(--light-blue-color);
+}
+
+
+.info-container {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--light-blue-color);
+  border-top: 1px solid var(--light-blue-color);
+}
+
+.info-link {
+  font-size: 14px;
+  color: var(--blue-color);
+  background-color: var(--light-blue-color);
+  width: 100%;
+  height: 100%;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0 0 12px 12px;
+}
+
+.info-link:hover {
+  color: var(--dark-blue-color);
+  text-decoration: underline;
+  font-size: 16px;
+}
+
+.app-footer {
+  background-color: var(--light-blue-color);
+  color: var(--dark-blue-color);
+  width: 100%;
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  border-top: 1px solid var(--light-blue-color);
+  font-weight: 500;
+  font-size: 16px;
+}

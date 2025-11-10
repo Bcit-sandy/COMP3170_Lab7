@@ -1,0 +1,6 @@
+.filter-container {
+    display: flex;
+    align-items: left;
+    justify-content: left;
+    background-color: var(--beige-color);
+}

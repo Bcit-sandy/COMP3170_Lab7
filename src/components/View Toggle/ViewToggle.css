@@ -1,0 +1,43 @@
+/* View Toggle Buttons */
+.view-toggle-container {
+  display: flex;
+  gap: 1rem;
+}
+
+.view-toggle-button {
+  background: var(--white-color);
+  color: var(--blue-color);
+  border: 2px solid var(--blue-color);
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.view-toggle-button:hover {
+  background: var(--light-blue-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(86, 124, 189, 0.3);
+}
+
+.view-toggle-button.active {
+  background: var(--blue-color);
+  color: var(--white-color);
+  box-shadow: 0 4px 12px rgba(86, 124, 189, 0.4);
+}
+
+/* Responsive design for view toggle */
+@media (max-width: 768px) {
+  .view-toggle-container {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+
+  .view-toggle-button {
+    width: 200px;
+  }
+}
+

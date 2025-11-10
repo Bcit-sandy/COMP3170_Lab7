@@ -1,0 +1,98 @@
+/* Book Component Styles */
+.book-container {
+  width: 200px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: none;
+  background: var(--white-color);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  justify-self: start;
+  align-self: start;
+  cursor: pointer;
+  position: relative;
+}
+
+.book-container:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.book-container:hover .remove-button {
+  opacity: 1;
+}
+
+.book-container:hover .book-cover-image {
+  transform: scale(1.05);
+}
+
+.book-selected {
+  border: 3px solid var(--blue-color) !important;
+  background: var(--light-blue-color) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px var(--dark-blue-color) 50%;
+}
+
+.remove-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: var(--dark-blue-color);
+  color: var(--white-color);
+  border: none;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease, background 0.2s ease;
+  z-index: 2;
+}
+
+.remove-button:hover {
+  background: var(--red-color);
+  transform: scale(1.1);
+}
+
+.book-cover {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.book-cover-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.on-loan-label {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: var(--green-color);
+  color: var(--white-color);
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  z-index: 2;
+}
+
+.book-author {
+  font-size: 14px;
+  color: var(--dark-blue-color);
+  margin: 0.5rem 0;
+  text-align: center;
+}
+

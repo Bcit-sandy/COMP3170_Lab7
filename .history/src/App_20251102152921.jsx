@@ -1,0 +1,174 @@
+import { useState, useEffect } from "react";
+import Book from "./components/Book";
+import Add from "./components/New";
+import Main from "./components/Main";
+import data from "../data/books.json";
+import Filter from "./components/Filter/Filter";
+import LoanManagement from "./components/LoanManagement";
+import ViewToggle from "./components/View Toggle/ViewToggle";
+
+function App() {
+  // Load books from localStorage or use default data
+  const [books, setBooks] = useState(() => {
+    try {
+      const savedBooks = localStorage.getItem('books');
+      return savedBooks ? JSON.parse(savedBooks) : data;
+    } catch (error) {
+      console.error('Error loading books from localStorage:', error);
+      return data;
+    }
+  });
+  const [selectedBook, setSelectedBook] = useState(null);
+  const [filterAuthor, setFilterAuthor] = useState('');
+  const [currentView, setCurrentView] = useState('books'); // 'books' or 'loans'
+  
+  // Load loans from localStorage
+  const [loans, setLoans] = useState(() => {
+    try {
+      const savedLoans = localStorage.getItem('loans');
+      return savedLoans ? JSON.parse(savedLoans) : [];
+    } catch (error) {
+      console.error('Error loading loans from localStorage:', error);
+      return [];
+    }
+  });
+
+  // Save books to localStorage whenever books state changes
+  useEffect(() => {
+    try {
+      localStorage.setItem('books', JSON.stringify(books));
+    } catch (error) {
+      console.error('Error saving books to localStorage:', error);
+    }
+  }, [books]);
+
+  // Save loans to localStorage whenever loans state changes
+  useEffect(() => {
+    try {
+      localStorage.setItem('loans', JSON.stringify(loans));
+    } catch (error) {
+      console.error('Error saving loans to localStorage:', error);
+    }
+  }, [loans]);
+
+  function getBooks(bookData) {
+    const isSelected = selectedBook && (selectedBook.isbn13 || selectedBook.title) === (bookData.isbn13 || bookData.title);
+    return (
+      <Book 
+        key={bookData.isbn13 || bookData.title} 
+        data={bookData} 
+        onSelect={handleBookSelection}
+        isSelected={isSelected}
+      />
+    );
+  }
+
+  function handleBookSelection(book) {
+    // If clicking the same book that's already selected, unselect it
+    if (selectedBook && (selectedBook.isbn13 || selectedBook.title) === (book.isbn13 || book.title)) {
+      setSelectedBook(null);
+    } else {
+      // Otherwise, select the clicked book
+      setSelectedBook(book);
+    }
+  }
+
+  function handleUpdateBook(updatedBook) {
+    setBooks(prevBooks => 
+      prevBooks.map(book => 
+        (book.isbn13 || book.title) === (updatedBook.isbn13 || updatedBook.title) 
+          ? updatedBook 
+          : book
+      )
+    );
+    setSelectedBook(updatedBook);
+  }
+
+  function handleDeleteBook() {
+    if (selectedBook) {
+      setBooks(prevBooks => prevBooks.filter(book => 
+          (book.isbn13 || book.title) !== (selectedBook.isbn13 || selectedBook.title)
+        ));
+        setSelectedBook(null);
+    } else {
+      alert("Please select a book to delete");
+    }
+  }
+
+  function handleAddBook(newBook) {
+    setBooks(prevBooks => [...prevBooks, newBook]);
+  }
+
+  // Function to clear localStorage (useful for debugging)
+  function clearStorage() {
+    localStorage.removeItem('books');
+    setBooks(data);
+  }
+
+  const authors = [...new Set(books.map(book => book.author))];
+
+  // Filter books based on selected author
+  const filteredBooks = filterAuthor 
+    ? books.filter(book => book.author === filterAuthor)
+    : books;
+
+  return (
+    <div>
+      <header className="app-header">
+       <h1 className="app-name">Book Catalog</h1>
+       {currentView === 'books' && (
+         <div className="header-controls">
+           <ViewToggle 
+             currentView={currentView}
+             onViewChange={setCurrentView}
+           />
+           <Filter 
+             authors={authors} 
+             onFilterChange={setFilterAuthor}
+             currentFilter={filterAuthor}
+           />
+         </div>
+       )}
+      </header>
+
+      <main className="app-main">
+        {currentView === 'books' ? (
+          <>
+            <div className="app-content-container">
+              <div className="add-button-column">
+                <Add 
+                  onDelete={handleDeleteBook}
+                  onAddBook={handleAddBook}
+                  book={selectedBook}
+                  update={handleUpdateBook}
+                />
+              </div>
+              <Main>
+                {filteredBooks.map(getBooks)}
+              </Main>
+            </div>
+          </>
+        ) : (
+          <div className="loan-management-wrapper">
+            <LoanManagement 
+              books={books}
+              loans={loans}
+              onLoanChange={setLoans}
+              onQuit={() => setCurrentView('books')}
+            />
+          </div>
+        )}
+      </main>
+
+      <footer className="app-footer">
+        <p>&copy; Sandy Chow, Set G, 2025</p>
+      </footer> 
+    </div>
+
+  )
+}
+
+export default App;
+
+
+
